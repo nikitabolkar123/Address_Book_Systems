@@ -4,8 +4,6 @@ using System.Text;
 
 namespace AddressBook
 {
-
-
     public class AddressBook
     {
         //Ceating List to store contacts
@@ -41,7 +39,7 @@ namespace AddressBook
             Console.WriteLine("8)Enter Email-Id");
             contact.Email = Console.ReadLine();
 
-            //created addressBook list use to store 
+            //created addressBook list use to store contacts 
             addressBook.Add(contact);
 
         }
@@ -147,6 +145,7 @@ namespace AddressBook
                             break;
 
                         default:
+
                             Console.WriteLine("Please Enter proper option");
                             break;
 
@@ -185,7 +184,7 @@ namespace AddressBook
             {
 
                 addPerson();
-                Console.WriteLine(":::::::::::::::::::::::::::;");
+                Console.WriteLine("::::::::::::::::::::::::::::");
                 Number--;
             }
         }
