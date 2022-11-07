@@ -4,6 +4,8 @@ using System.Text;
 
 namespace AddressBook
 {
+
+
     public class AddressBook
     {
         //Ceating List to store contacts
@@ -172,6 +174,22 @@ namespace AddressBook
             Console.WriteLine("Contact not Found ");
         }
 
+        public void AddMultipleContact()
+        {
+            Console.WriteLine("Enter Number of contact to Add");
+
+            int Number = Convert.ToInt32(Console.ReadLine());
+            //while loop is used to store contacts which user input as a number
+
+            while (Number > 0)
+            {
+
+                addPerson();
+                Console.WriteLine(":::::::::::::::::::::::::::;");
+                Number--;
+            }
+        }
+
         //Display method 
         public void Display()
         {
@@ -189,5 +207,3 @@ namespace AddressBook
         }
     }
 }
-
-
