@@ -1,276 +1,219 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AddressBook
 {
-    public class Program
+    class Program
     {
+        public static Dictionary<string, List<Contact>> addressBookSystem = new Dictionary<string, List<Contact>>();
         public static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Address Book Program");
+            Console.WriteLine("Welcome to Address Book Sytem.");
 
-            bool check = true;
+            CreateAddresBook();
+            DisplayDictionary();
+            //DisplayContacts();
+            //EditContacts();
+            //DeleteContacts();            
+        }
+        public static bool FillingDetails(Contact contact, List<Contact> contacts)
+        {
+            Console.WriteLine("Enter first name: ");
+            string tempFirstname = Console.ReadLine();
 
-            while (check)
+
+            if (CheckDuplicate(contacts, tempFirstname))
             {
-                Console.WriteLine("Please select the Options :\n" +
-                    "1)Enter Details to add Contact in List\n" +
-                    "2)Add new Contact, Display and Stores contact in the list\n" +
-                    "3)Edit Details of Contact\n" +
-                    "4)Remove Contact Details from the List\n" +
-                    "5)Enter numbers for Adding Multiple Contacts\n" +
-                    "6)Refactoring Multiple AddressBook Which Has Unique Name\n");
+                return false;
+            }
+            contact.firstName = tempFirstname;
 
-                int option = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter last name: ");
+            contact.lastName = Console.ReadLine();
 
-                switch (option)
+            Console.WriteLine("Enter address: ");
+            contact.address = Console.ReadLine();
+
+            Console.WriteLine("Enter city: ");
+            contact.city = Console.ReadLine();
+
+            Console.WriteLine("Enter state: ");
+            contact.state = Console.ReadLine();
+
+            Console.WriteLine("Enter phone: ");
+            contact.phone = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Enter email: ");
+            contact.email = Console.ReadLine();
+
+            Console.WriteLine("Enter zipcode: ");
+            contact.zipcode = Convert.ToInt32(Console.ReadLine());
+            return true;
+        }
+
+        public static void CreatingContacts(List<Contact> contacts)
+        {
+            Console.WriteLine("Do you want to add new contact press 1 or press 2 to cancle.");
+            int num = Convert.ToInt32(Console.ReadLine());
+
+
+            while (num == 1)
+            {
+                Contact contact = new Contact();
+
+                if (FillingDetails(contact, contacts))
+                    contacts.Add(contact);
+
+                Console.WriteLine("Do you want to add anoter contact then press 1 or press 2 for exit ");
+                num = Convert.ToInt32(Console.ReadLine());
+            }
+            Console.WriteLine("=============================================================");
+            Console.WriteLine("Total number of contact in address book:" + contacts.Count);
+        }
+
+        public static bool CheckDuplicate(List<Contact> contacts, string firstName)
+        {
+
+            //Any will check for duplicate same firstnamename in database
+            if (contacts.Count > 0)
+            {
+
+                if (contacts.Any(x => x.firstName.Equals(firstName)))
                 {
-                    case 1:
-
-                        AddressBook addobj = new AddressBook();
-                        Console.WriteLine("::::::::::::::::::::::::::");
-                        addobj.createContact();
-                        break;
-
-                    case 2:
-
-                        AddressBook addobj1 = new AddressBook();
-                        Console.WriteLine("::::::::::::::::::::::::::");
-                        addobj1.createContact();
-                        Console.WriteLine("::::::::::::::::::::::::::");
-                        Console.WriteLine("Entered Details of Person given as :");
-                        addobj1.Display();
-                        addobj1.addPerson();
-                        break;
-
-                    case 3:
-
-                        AddressBook addobj2 = new AddressBook();
-                        Console.WriteLine("::::::::::::::::::::::::::");
-
-                        bool check1 = true;
-
-                        while (check1)
-                        {
-                            Console.WriteLine("Follow Steps to add details:\n" +
-                               "1) To addContact\n" + "2) To Edit Contact\n" +
-                               "3) To Display Contact\n");
-
-                            int select = Convert.ToInt32(Console.ReadLine());
-                            switch (select)
-                            {
-                                case 1:
-                                    addobj2.addPerson();
-                                    Console.WriteLine(":::::::::::::::::::::::::::;");
-                                    break;
-
-                                case 2:
-                                    addobj2.EditContact();
-                                    Console.WriteLine(":::::::::::::::::::::::::::;");
-                                    break;
-
-                                case 3:
-                                    addobj2.Display();
-                                    Console.WriteLine(":::::::::::::::::::::::::::;");
-                                    break;
-
-                                default:
-
-                                    check = !check;
-                                    break;
-                            }
-                        }
-                        break;
-
-                    case 4:
-
-                        AddressBook addobj3 = new AddressBook();
-                        Console.WriteLine("::::::::::::::::::::::::::");
-
-                        bool check2 = true;
-
-                        while (check2)
-                        {
-                            Console.WriteLine("Follow Steps to add details:\n" +
-                               "1) To addContact\n" + "2) To Edit Contact\n" +
-                               "3) To Remove Contact\n" + "4) To Display Contact\n");
-
-                            int select = Convert.ToInt32(Console.ReadLine());
-                            switch (select)
-                            {
-                                case 1:
-                                    addobj3.addPerson();
-                                    Console.WriteLine(":::::::::::::::::::::::::::;");
-                                    break;
-
-                                case 2:
-                                    addobj3.EditContact();
-                                    Console.WriteLine(":::::::::::::::::::::::::::;");
-                                    break;
-
-                                case 3:
-                                    addobj3.DeleteContact();
-                                    Console.WriteLine(":::::::::::::::::::::::::::;");
-                                    break;
-
-                                case 4:
-                                    addobj3.Display();
-                                    Console.WriteLine(":::::::::::::::::::::::::::;");
-                                    break;
-
-                                case 5:
-                                    addobj3.AddMultipleContact();
-                                    Console.WriteLine(":::::::::::::::::::::::::::;");
-                                    break;
-
-                                default:
-
-                                    check = !check;
-                                    break;
-                            }
-                        }
-                        break;
-
-                    case 5:
-
-                        AddressBook addobj4 = new AddressBook();
-                        Console.WriteLine("::::::::::::::::::::::::::");
-
-                        bool check3 = true;
-
-                        while (check3)
-                        {
-                            Console.WriteLine("Follow Steps to add details:\n" +
-                               "1) To addContact\n" + "2) To Edit Contact\n" +
-                               "3) To Remove Contact\n" + "4) Adding Multiple Contacts\n" +
-                               "5) To Display Contact\n");
-
-                            int select = Convert.ToInt32(Console.ReadLine());
-                            switch (select)
-                            {
-                                case 1:
-                                    addobj4.addPerson();
-                                    Console.WriteLine(":::::::::::::::::::::::::::;");
-                                    break;
-
-                                case 2:
-                                    addobj4.EditContact();
-                                    Console.WriteLine(":::::::::::::::::::::::::::;");
-                                    break;
-
-                                case 3:
-                                    addobj4.DeleteContact();
-                                    Console.WriteLine(":::::::::::::::::::::::::::;");
-                                    break;
-
-                                case 4:
-                                    addobj4.AddMultipleContact();
-                                    Console.WriteLine(":::::::::::::::::::::::::::;");
-                                    break;
-
-                                case 5:
-                                    addobj4.Display();
-                                    Console.WriteLine(":::::::::::::::::::::::::::;");
-                                    break;
-
-
-                                default:
-
-                                    check = !check;
-                                    break;
-                            }
-                        }
-                        break;
-
-                    case 6:
-
-
-                        AddressBook addobj5 = new AddressBook();
-                        Console.WriteLine("::::::::::::::::::::::::::");
-
-                        UniqueNameDict unique = new UniqueNameDict();
-
-                        bool check4 = true;
-
-                        while (check4)
-                        {
-                            Console.WriteLine("Please Choose Options For:\n" +
-                               "1) To Add Addressbook\n" + "2) To Edit Addressbook\n" +
-                               "3) To Exit\n");
-
-                            int option1 = Convert.ToInt32(Console.ReadLine());
-
-                            switch (option1)
-                            {
-                                case 1:
-                                    Console.WriteLine("Add Contacts to the AddressBook");
-                                    unique.NewAddressBook();
-                                    break;
-
-                                case 2:
-                                    Console.WriteLine("Edit the Name Which you want from AddressBook");
-                                    string addName = Console.ReadLine();
-
-                                    if (unique.addBookobj.ContainsKey(addName.ToLower())) ;
-                                    {
-                                        bool opt = true;
-                                        while (opt)
-                                        {
-                                            Console.WriteLine("Follow Steps to add details:\n" +
-                                                            "1) To addContact\n" + "2) To Edit Contact\n" +
-                                                            "3) To Remove Contact\n" + "4) Adding Multiple Contacts\n" +
-                                                            "5) To Display Contact\n");
-
-                                            int select1 = Convert.ToInt32(Console.ReadLine());
-                                            switch (select1)
-                                            {
-
-                                                case 1:
-                                                    addobj5.addPerson();
-                                                    Console.WriteLine(":::::::::::::::::::::::::::;");
-                                                    break;
-
-                                                case 2:
-                                                    addobj5.EditContact();
-                                                    Console.WriteLine(":::::::::::::::::::::::::::;");
-                                                    break;
-
-                                                case 3:
-                                                    addobj5.DeleteContact();
-                                                    Console.WriteLine(":::::::::::::::::::::::::::;");
-                                                    break;
-
-                                                case 4:
-                                                    addobj5.AddMultipleContact();
-                                                    Console.WriteLine(":::::::::::::::::::::::::::;");
-                                                    break;
-
-                                                case 5:
-                                                    addobj5.Display();
-                                                    Console.WriteLine(":::::::::::::::::::::::::::;");
-                                                    break;
-
-
-                                                default:
-
-                                                    check = !check;
-                                                    break;
-                                            }
-                                        }
-                                    }
-                                    break;
-                            }
-                        }
-                        break;
-
-                    default:
-                        Console.WriteLine("Closing AddressBook");
-                        break;
+                    Console.WriteLine("Already exist in database");
+                    return true;
                 }
 
+
             }
+            return false;
+        }
+        public static void DisplayContacts(List<Contact> contacts)
+        {
+            //print contacts
+
+            Console.WriteLine("=============================================================");
+            Console.WriteLine("Current contacts in adress book:");
+
+            foreach (Contact contact in contacts)
+            {
+                Console.WriteLine(contact.firstName);
+            }
+            Console.WriteLine("=============================================================");
 
         }
-    }
 
+        public static void EditContacts(List<Contact> contacts)
+        {
+            Console.WriteLine("Do you want to edit contact details then press 1 or pres 2 for continue: ");
+            int num = Convert.ToInt32(Console.ReadLine());
+            while (num == 1)
+            {
+                Console.WriteLine("Enter first name to edit details: ");
+                string firstName = Console.ReadLine();
+                bool found = false;
+                for (int i = 0; i < contacts.Count; i++)
+                {
+
+                    if (contacts[i].firstName == firstName)
+                    {
+                        found = true;  //found the contact
+
+                        //now editing...
+                        if (!FillingDetails(contacts[i], contacts)) ;
+                        Console.WriteLine("Name is available in database");
+                        break;
+
+                    }
+                } //end of for loop
+                if (!found)
+                    Console.WriteLine("the contact with given person {0} is not in address book", firstName);
+                //print contacts
+                DisplayContacts(contacts);
+                Console.WriteLine("Do you want to edit contact press 1 to edit or press 2 to cancle.");
+                num = Convert.ToInt32(Console.ReadLine());
+            }//while loop end
+
+        }
+
+        public static void DeleteContacts(List<Contact> contacts)
+        {
+            //deleting contact
+            Console.WriteLine("Do you want to delete contact press 1 to delete or press 2 to cancle.");
+            int num = Convert.ToInt32(Console.ReadLine());
+
+            while (num == 1 && contacts.Count > 0)
+            {
+                Console.WriteLine("Enter contact First name");
+                string firstName = Console.ReadLine();
+
+                bool found = false;
+                for (int i = 0; i < contacts.Count; i++)
+                {
+
+                    if (contacts[i].firstName == firstName)
+                    {
+                        found = true;  //found the contact
+
+                        contacts.RemoveAt(i);
+                        break;
+
+                    }
+                }
+
+                if (found)
+                {
+                    if (contacts.Count == 0) //if size 0 nothing to delete further
+                        break;
+                }
+                else
+                    Console.WriteLine("the contact with given person '{0}' is not in address book", firstName);
+                //displaying contacts
+                DisplayContacts(contacts);
+                Console.WriteLine("Do you want to delete contact press 1 to delete or press 2 to cancle.");
+                num = Convert.ToInt32(Console.ReadLine());
+
+            }//while end
+        }
+
+        public static void DisplayDictionary()
+        {
+            Console.WriteLine("Diplay current data in addressbook: ");
+            foreach (KeyValuePair<string, List<Contact>> obj in addressBookSystem)
+            {
+                Console.WriteLine("Displaying contacts of adressbook {0}", obj.Key);
+                DisplayContacts(obj.Value);
+                Console.WriteLine("===============================================");
+            }
+        }
+        public static void CreateAddresBook()
+        {
+            Console.WriteLine("Do you want to create new AddressBook press 1 for yes or 2 for no:");
+            int num = Convert.ToInt32(Console.ReadLine());
+            while (num == 1)
+            {
+                Console.WriteLine("Please enter a name of addressbook:");
+                string name = Console.ReadLine();
+                //creating list of contact
+                List<Contact> addressBook = new List<Contact>();
+                addressBookSystem.Add(name, addressBook);
+
+                CreatingContacts(addressBook);
+
+                if (addressBook.Count > 0)
+                {
+                    EditContacts(addressBook);
+                    DeleteContacts(addressBook);
+                }
+                DisplayDictionary();
+
+                Console.WriteLine("Do you want to create another addressbook press 1 or press 2 for exit:");
+                num = Convert.ToInt32(Console.ReadLine());
+            }
+        }
+    }
 }
+
+
+
 
