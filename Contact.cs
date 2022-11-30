@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Numerics;
+using System.Reflection.Emit;
 using System.Text;
+
 
 namespace AddressBook
 {
@@ -14,5 +18,10 @@ namespace AddressBook
         public string state;
         public int zipcode;
         public string email;
+        public override string ToString()
+        {
+            return String.Format("First Name: {0}, Last Name {1}, Adress: {2}, phone: {3}, city: {4}, state: {5}, zipcode: {6}, email: {7}",
+                                              firstName, lastName, address, phone, city, state, zipcode, email);
+        }
     }
 }

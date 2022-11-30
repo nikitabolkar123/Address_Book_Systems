@@ -1,28 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.IO;
+using System;
 using System.Linq;
 
 namespace AddressBook
 {
-   class Program
+    class Program
     {
-        public static Dictionary<string, List<Contact>> addressBookSystem = new Dictionary<string, List<Contact>>();
-        public static Dictionary<String, List<Contact>> cityDict = new Dictionary<string, List<Contact>>();
-        public static Dictionary<String, List<Contact>> stateDict = new Dictionary<string, List<Contact>>();
-
-        public static void Main(string[] args)
+        public static void WriteToFile()
         {
-            Console.WriteLine("Welcome to Address Book Sytem.");
+            string path = @"..\..\..\Contact.txt";
 
-            CreateAddresBook();
-            DisplayDictionary(addressBookSystem);
-            // SearchByCityOrState();
-            //FilterByCityAndState();
-            // ShowCountofContactsbyCityandState();
-            SortByName();
-            //DisplayContacts();
-            //EditContacts();
-            //DeleteContacts();            
+
+            using (StreamWriter sw = File.CreateText(path))
+            {
+                foreach (var kv in addressBookSystem)
+                {
+                    foreach (var contact in kv.Value)
+                        sw.WriteLine(contact.ToString());
+                }
+            }
         }
         public static void SortByCityAndStateOrZip()
         {
@@ -170,9 +167,6 @@ namespace AddressBook
 
         }
 
-
-
-
         public static void SearchByCityOrState()
         {
 
@@ -180,8 +174,6 @@ namespace AddressBook
             int num = Convert.ToInt32(Console.ReadLine());
             while (num == 1)
             {
-
-
                 List<Contact> tempcontacts = new List<Contact>();
                 Console.WriteLine("Enter the city or state to search :");
                 string iCity = Console.ReadLine();
@@ -397,7 +389,33 @@ namespace AddressBook
                 num = Convert.ToInt32(Console.ReadLine());
             }
         }
-    }
-}
 
-    
+
+
+        public static Dictionary<string, List<Contact>> addressBookSystem = new Dictionary<string, List<Contact>>();
+        public static Dictionary<String, List<Contact>> cityDict = new Dictionary<string, List<Contact>>();
+        public static Dictionary<String, List<Contact>> stateDict = new Dictionary<string, List<Contact>>();
+
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Welcome to Address Book Sytem.");
+            try
+            {
+                CreateAddresBook();
+                DisplayDictionary(addressBookSystem);
+                //DisplayContacts();
+                //SearchByCityOrState();
+                //FilterByCityAndState();
+                //ShowCountofContactsbyCityandState();
+                //SortByName();
+                WriteToFile();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+        }
+    }
+
+
+}
