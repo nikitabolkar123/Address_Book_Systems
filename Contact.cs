@@ -4,8 +4,6 @@ using System.Net;
 using System.Numerics;
 using System.Reflection.Emit;
 using System.Text;
-
-
 namespace AddressBook
 {
     public class Contact
